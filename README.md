@@ -1,5 +1,4 @@
-# Azure Machine Learning Enterprise Terraform Example
-
+# Deploying a Secure Azure Machine Learning Workspace - Terraform Example
 This repo shows an example for rolling out a complete Azure Machine Learning enterprise enviroment with network-secured resources via Terraform. This extends the original repo by including network security for all of the workspace dependent resources -- including Azure Container Registry, Azure Storage, and Azure Key Vault. 
 
 This repository includes code for deploying an Azure ML workspace into a standalone, isolated VNET. This can be desirable in cases where you want further isolation from your corporate network or have contstraints on available resources. 
