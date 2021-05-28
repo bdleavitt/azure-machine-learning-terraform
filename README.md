@@ -4,7 +4,8 @@ This repo shows an example for rolling out a complete Azure Machine Learning ent
 
 This repository includes code for deploying an Azure ML workspace into a standalone, isolated VNET. This can be desirable in cases where you want further isolation from your corporate network or have contstraints on available resources. 
 
-![Deployed resources](media/architecture_aml_pl.png "Deployed resources")
+Standalone VNET with workspace and Bastion Jumphost for Client Connectivity
+![Deployed resources](media/secure_workspace_with_standalone_vnet.png "Deployed resources")
 
 This includes rollout of the following resources:
 
@@ -18,8 +19,6 @@ This includes rollout of the following resources:
 * Compute Cluster (in VNET)
 * Compute Instance (in VNET)
 * (Azure Kubernetes Service - disabled by default and still under development)
-
-![Deployed resources](media/secure_workspace_with_standalone_vnet.png "Deployed resources")
 
 ## Instructions
 
