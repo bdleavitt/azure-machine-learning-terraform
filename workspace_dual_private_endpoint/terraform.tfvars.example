@@ -19,3 +19,8 @@ deploy_aks=false
 
 # Secure resources with private endpoints (otherwise use service endpoints). AML workspsace always uses private endpoint.
 use_private_endpoints_for_workspace_resources=false
+
+# Client Network VNET and Subnet ID
+corp_network_vnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}"
+corp_network_subnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}/subnets/{subnet_name}"
+

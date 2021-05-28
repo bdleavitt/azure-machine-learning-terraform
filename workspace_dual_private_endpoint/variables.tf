@@ -61,3 +61,13 @@ resource "random_string" "postfix" {
   special = false
   upper = false
 }
+
+# Client Network VNET Subnet ID
+
+variable "client_network_vnet_id" {
+  type = string
+}
+
+variable "client_network_subnet_id" {
+  type = string
+}

@@ -64,8 +64,7 @@ resource "azurerm_private_dns_zone" "ws_zone_notebooks" {
   resource_group_name = azurerm_resource_group.aml_rg.name
 }
 
-# Linking of DNS zones to Virtual Network
-
+# Linking of DNS zones to Workspace Virtual Network
 resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_api_link" {
   name                  = "${random_string.postfix.result}_link_api"
   resource_group_name   = azurerm_resource_group.aml_rg.name
@@ -80,8 +79,22 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_link
   virtual_network_id    = azurerm_virtual_network.aml_vnet.id
 }
 
-# Private Endpoint configuration
+# Linking of DNS zones to Client Virtual Network
+resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_api_client_vnet_link" {
+  name                  = "${random_string.postfix.result}_client_vnet_link_api"
+  resource_group_name   = azurerm_resource_group.aml_rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.ws_zone_api.name
+  virtual_network_id    = var.client_network_vnet_id
+}
 
+resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_client_vnet_link" {
+  name                  = "${random_string.postfix.result}_client_vnet_link_notebooks"
+  resource_group_name   = azurerm_resource_group.aml_rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.ws_zone_notebooks.name
+  virtual_network_id    = var.client_network_vnet_id
+}
+
+# Private Endpoint configuration for workspace VNET
 resource "azurerm_private_endpoint" "ws_pe" {
   name                = "${var.prefix}-ws-pe-${random_string.postfix.result}"
   location            = azurerm_resource_group.aml_rg.location
@@ -97,6 +110,29 @@ resource "azurerm_private_endpoint" "ws_pe" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group-ws"
+    private_dns_zone_ids = [azurerm_private_dns_zone.ws_zone_api.id, azurerm_private_dns_zone.ws_zone_notebooks.id]
+  }
+
+  # Add Private Link after we configured the workspace and attached AKS
+  depends_on = [null_resource.compute_resources, azurerm_kubernetes_cluster.aml_aks]
+}
+
+# Private Endpoint configuration for client VNET
+resource "azurerm_private_endpoint" "ws_client_vnet_pe" {
+  name                = "${var.prefix}-ws-pe-client-vnet-${random_string.postfix.result}"
+  location            = azurerm_resource_group.aml_rg.location
+  resource_group_name = azurerm_resource_group.aml_rg.name
+  subnet_id           = var.client_network_subnet_id
+
+  private_service_connection {
+    name                           = "${var.prefix}-ws-psc-client-vnet-${random_string.postfix.result}"
+    private_connection_resource_id = azurerm_machine_learning_workspace.aml_ws.id
+    subresource_names              = ["amlworkspace"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "private-dns-zone-group--client-vnet-ws"
     private_dns_zone_ids = [azurerm_private_dns_zone.ws_zone_api.id, azurerm_private_dns_zone.ws_zone_notebooks.id]
   }
 

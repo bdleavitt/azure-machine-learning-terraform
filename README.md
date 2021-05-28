@@ -26,7 +26,7 @@ This includes rollout of the following resources:
 
 * Azure Machine Learning Workspace with Private Link
 * A new Virtual Network and subnets for AML resources.
-* A reference to an existing virtual network (e.g. your corporate network) where client traffic will originate from. 
+* A reference to an existing virtual network (e.g. your client or corporate network) where client traffic will originate from. 
 * Azure Storage Account with VNET binding to both VNETs (using Service Endpoints or Private Endpoints)
 * Azure Key Vault with VNET binding to both VNETs (using Service Endpoints or Private Endpoints)
 * Azure Container Registry with VNET to both VNETs  binding (using Service Endpoints or Private Endpoints)
