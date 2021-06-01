@@ -72,9 +72,11 @@ resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_file_link" {
 }
 
 # Linking of DNS zones to Provided Client Network
+/* 
+## If DNS zones already exist in the target VNET, don't try to create them again
 resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_blob_client_vnet_link" {
   count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
-  name                  = "${random_string.postfix.result}_link_blob"
+  name                  = "${random_string.postfix.result}_link_client_vnet_blob"
   resource_group_name   = azurerm_resource_group.aml_rg.name
   private_dns_zone_name = azurerm_private_dns_zone.sa_zone_blob[0].name
   virtual_network_id    = var.client_network_vnet_id
@@ -82,11 +84,12 @@ resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_blob_client_vn
 
 resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_file_client_vnet_link" {
   count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
-  name                  = "${random_string.postfix.result}_link_file"
+  name                  = "${random_string.postfix.result}_link_client_vnet_file"
   resource_group_name   = azurerm_resource_group.aml_rg.name
   private_dns_zone_name = azurerm_private_dns_zone.sa_zone_file[0].name
   virtual_network_id    = var.client_network_vnet_id
 }
+*/
 
 # Private Endpoint configuration - workspace VNET
 resource "azurerm_private_endpoint" "sa_pe_blob" {
@@ -146,7 +149,7 @@ resource "azurerm_private_endpoint" "sa_pe_client_vnet_blob" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group-client-blob"
-    private_dns_zone_ids = [azurerm_private_dns_zone.sa_zone_blob[0].id]
+    private_dns_zone_ids = [var.client_network_dns_zone_id_storage_blob] ## existing DNS zone id in client VNET
   }
 }
 
@@ -166,6 +169,6 @@ resource "azurerm_private_endpoint" "sa_pe_client_vnet_file" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group-client-file"
-    private_dns_zone_ids = [azurerm_private_dns_zone.sa_zone_file[0].id]
+    private_dns_zone_ids = [var.client_network_dns_zone_id_storage_file] ## existing DNS zone id in client VNET
   }
 }

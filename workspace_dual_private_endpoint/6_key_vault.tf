@@ -102,6 +102,6 @@ resource "azurerm_private_endpoint" "kv_client_vnet_pe" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group-client-vnet-kv"
-    private_dns_zone_ids = [azurerm_private_dns_zone.kv_zone[0].id]
+    private_dns_zone_ids = [var.client_network_dns_zone_id_kv]
   }
 }

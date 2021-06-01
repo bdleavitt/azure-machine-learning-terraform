@@ -79,6 +79,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_link
   virtual_network_id    = azurerm_virtual_network.aml_vnet.id
 }
 
+/*
 # Linking of DNS zones to Client Virtual Network
 resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_api_client_vnet_link" {
   name                  = "${random_string.postfix.result}_client_vnet_link_api"
@@ -93,6 +94,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_clie
   private_dns_zone_name = azurerm_private_dns_zone.ws_zone_notebooks.name
   virtual_network_id    = var.client_network_vnet_id
 }
+*/
 
 # Private Endpoint configuration for workspace VNET
 resource "azurerm_private_endpoint" "ws_pe" {
@@ -133,7 +135,7 @@ resource "azurerm_private_endpoint" "ws_client_vnet_pe" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group--client-vnet-ws"
-    private_dns_zone_ids = [azurerm_private_dns_zone.ws_zone_api.id, azurerm_private_dns_zone.ws_zone_notebooks.id]
+    private_dns_zone_ids = [var.client_network_dns_zone_id_workspace_api, var.client_network_dns_zone_id_workspace_notebooks]
   }
 
   # Add Private Link after we configured the workspace and attached AKS

@@ -71,3 +71,32 @@ variable "client_network_vnet_id" {
 variable "client_network_subnet_id" {
   type = string
 }
+
+variable "client_network_dns_zone_id_storage_blob" {
+  type = string
+  default = ""
+}
+
+variable "client_network_dns_zone_id_storage_file" {
+  type = string
+  default = ""
+}
+
+variable "client_network_dns_zone_id_acr" {
+  type = string
+  default = ""
+}
+
+variable "client_network_dns_zone_id_kv" {
+  type = string
+  default = ""
+}
+
+variable "client_network_dns_zone_id_workspace_api" {
+  type = string
+  default = ""
+}
+variable "client_network_dns_zone_id_workspace_notebooks" {
+  type = string
+  default = ""
+}
