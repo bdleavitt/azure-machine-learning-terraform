@@ -54,17 +54,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "kv_zone_link" {
   virtual_network_id    = azurerm_virtual_network.aml_vnet.id
 }
 
-# Linking of DNS zones to Client Virtual Network
-resource "azurerm_private_dns_zone_virtual_network_link" "kv_zone_client_vnet_link" {
-  count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
-  name                  = "${random_string.postfix.result}_client_vnet_link_kv"
-  resource_group_name   = azurerm_resource_group.aml_rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.kv_zone[0].name
-  virtual_network_id    = var.client_network_vnet_id
-}
-
 # Private Endpoint configuration for Workspace VNET
-
 resource "azurerm_private_endpoint" "kv_pe" {
   count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
   name                = "${var.prefix}-kv-pe-${random_string.postfix.result}"

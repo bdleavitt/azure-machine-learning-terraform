@@ -79,23 +79,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_link
   virtual_network_id    = azurerm_virtual_network.aml_vnet.id
 }
 
-/*
-# Linking of DNS zones to Client Virtual Network
-resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_api_client_vnet_link" {
-  name                  = "${random_string.postfix.result}_client_vnet_link_api"
-  resource_group_name   = azurerm_resource_group.aml_rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.ws_zone_api.name
-  virtual_network_id    = var.client_network_vnet_id
-}
-
-resource "azurerm_private_dns_zone_virtual_network_link" "ws_zone_notebooks_client_vnet_link" {
-  name                  = "${random_string.postfix.result}_client_vnet_link_notebooks"
-  resource_group_name   = azurerm_resource_group.aml_rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.ws_zone_notebooks.name
-  virtual_network_id    = var.client_network_vnet_id
-}
-*/
-
 # Private Endpoint configuration for workspace VNET
 resource "azurerm_private_endpoint" "ws_pe" {
   name                = "${var.prefix}-ws-pe-${random_string.postfix.result}"

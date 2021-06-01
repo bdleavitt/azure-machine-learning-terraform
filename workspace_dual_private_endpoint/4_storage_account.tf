@@ -71,26 +71,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_file_link" {
   virtual_network_id    = azurerm_virtual_network.aml_vnet.id
 }
 
-# Linking of DNS zones to Provided Client Network
-/* 
-## If DNS zones already exist in the target VNET, don't try to create them again
-resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_blob_client_vnet_link" {
-  count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
-  name                  = "${random_string.postfix.result}_link_client_vnet_blob"
-  resource_group_name   = azurerm_resource_group.aml_rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.sa_zone_blob[0].name
-  virtual_network_id    = var.client_network_vnet_id
-}
-
-resource "azurerm_private_dns_zone_virtual_network_link" "sa_zone_file_client_vnet_link" {
-  count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
-  name                  = "${random_string.postfix.result}_link_client_vnet_file"
-  resource_group_name   = azurerm_resource_group.aml_rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.sa_zone_file[0].name
-  virtual_network_id    = var.client_network_vnet_id
-}
-*/
-
 # Private Endpoint configuration - workspace VNET
 resource "azurerm_private_endpoint" "sa_pe_blob" {
   count               = var.use_private_endpoints_for_workspace_resources ? 1 : 0 # if use_private_endpoints is true, then deploy this
