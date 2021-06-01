@@ -94,7 +94,7 @@ resource "azurerm_private_endpoint" "ws_pe" {
   }
 
   private_dns_zone_group {
-    name                 = "private-dns-zone-group-ws"
+    name                 = "private-dns-zone-group-client-vnet-ws-${random_string.postfix.result}"
     private_dns_zone_ids = [azurerm_private_dns_zone.ws_zone_api.id, azurerm_private_dns_zone.ws_zone_notebooks.id]
   }
 
@@ -117,7 +117,7 @@ resource "azurerm_private_endpoint" "ws_client_vnet_pe" {
   }
 
   private_dns_zone_group {
-    name                 = "private-dns-zone-group--client-vnet-ws"
+    name                 = "private-dns-zone-group-client-vnet-ws-${random_string.postfix.result}"
     private_dns_zone_ids = [var.client_network_dns_zone_id_workspace_api, var.client_network_dns_zone_id_workspace_notebooks]
   }
 
