@@ -25,9 +25,10 @@ corp_network_vnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{reso
 corp_network_subnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}/subnets/{subnet_name}"
 
 # Client Network DNS Zones IDs:
-client_network_dns_zone_id_storage_blob = ""
-client_network_dns_zone_id_storage_file = "" 
-client_network_dns_zone_id_acr = ""
-client_network_dns_zone_id_kv = ""
+client_network_dns_zone_id_storage_blob = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"
+client_network_dns_zone_id_storage_file = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.file.core.windows.net" 
+client_network_dns_zone_id_acr = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.azurecr.io"
+client_network_dns_zone_id_kv = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.vaultcore.azure.net"
 client_network_dns_zone_id_workspace_api = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.api.azureml.ms"
-client_network_dns_zone_id_workspace_notebooks = ""
+client_network_dns_zone_id_workspace_notebooks = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.notebooks.azure.net"
+
