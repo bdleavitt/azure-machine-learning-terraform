@@ -6,6 +6,7 @@
 # Jump host for testing VNET and Private Link
 
 resource "azurerm_network_interface" "jumphost_nic" {
+  count               = var.deploy_jumphost ? 1 : 0
   name                = "jumphost-nic"
   location            = azurerm_resource_group.aml_rg.location
   resource_group_name = azurerm_resource_group.aml_rg.name
@@ -19,6 +20,7 @@ resource "azurerm_network_interface" "jumphost_nic" {
 }
 
 resource "azurerm_network_security_group" "jumphost_nsg" {
+  count               = var.deploy_jumphost ? 1 : 0
   name                = "jumphost-nsg"
   location            = azurerm_resource_group.aml_rg.location
   resource_group_name = azurerm_resource_group.aml_rg.name
@@ -37,15 +39,17 @@ resource "azurerm_network_security_group" "jumphost_nsg" {
 }
 
 resource "azurerm_network_interface_security_group_association" "jumphost_nsg_association" {
-  network_interface_id      = azurerm_network_interface.jumphost_nic.id
-  network_security_group_id = azurerm_network_security_group.jumphost_nsg.id
+  count               = var.deploy_jumphost ? 1 : 0
+  network_interface_id      = azurerm_network_interface.jumphost_nic[count.index].id
+  network_security_group_id = azurerm_network_security_group.jumphost_nsg[count.index].id
 }
 
 resource "azurerm_virtual_machine" "jumphost" {
+  count               = var.deploy_jumphost ? 1 : 0
   name                  = "jumphost"
   location              = azurerm_resource_group.aml_rg.location
   resource_group_name   = azurerm_resource_group.aml_rg.name
-  network_interface_ids = [azurerm_network_interface.jumphost_nic.id]
+  network_interface_ids = [azurerm_network_interface.jumphost_nic[count.index].id]
   vm_size               = "Standard_DS3_v2"
 
   delete_os_disk_on_termination    = true
@@ -82,7 +86,8 @@ resource "azurerm_virtual_machine" "jumphost" {
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "jumphost_schedule" {
-  virtual_machine_id = azurerm_virtual_machine.jumphost.id
+  count               = var.deploy_jumphost ? 1 : 0
+  virtual_machine_id = azurerm_virtual_machine.jumphost[count.index].id
   location           = azurerm_resource_group.aml_rg.location
   enabled            = true
 

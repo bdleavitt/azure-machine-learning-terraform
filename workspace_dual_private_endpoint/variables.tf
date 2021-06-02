@@ -39,6 +39,14 @@ variable "deploy_aks" {
   default = false
 }
 
+variable "deploy_jumphost" {
+  default = true
+}
+
+variable "deploy_bastion" {
+  default = true
+}
+
 variable "use_private_endpoints_for_workspace_resources" {
   default = false
 }
