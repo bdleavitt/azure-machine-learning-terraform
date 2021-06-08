@@ -8,7 +8,7 @@
 # Pass correct resource to AML workspace depending on whether PEs are being used. 
 locals {
   key_vault_id          = "${var.use_private_endpoints_for_workspace_resources == false ? azurerm_key_vault.aml_kv[0].id : azurerm_key_vault.aml_kv_pe[0].id}"
-  container_registry_id = "${var.use_private_endpoints_for_workspace_resources == false ? azurerm_container_registry.aml_acr[0].id : azurerm_container_registry.aml_acr_pe[0].id}"
+  container_registry_id = azurerm_container_registry.aml_acr_pe.id
 }
 
 resource "azurerm_machine_learning_workspace" "aml_ws" {

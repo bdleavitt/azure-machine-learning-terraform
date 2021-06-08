@@ -80,16 +80,3 @@ resource "azurerm_virtual_machine" "jumphost" {
     managed_disk_type = "StandardSSD_LRS"
   }
 }
-
-resource "azurerm_dev_test_global_vm_shutdown_schedule" "jumphost_schedule" {
-  virtual_machine_id = azurerm_virtual_machine.jumphost.id
-  location           = azurerm_resource_group.aml_rg.location
-  enabled            = true
-
-  daily_recurrence_time = "1900"
-  timezone              = "Eastern Standard Time"
-
-  notification_settings {
-    enabled = false
-  }
-}
