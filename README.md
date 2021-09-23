@@ -2,7 +2,15 @@
 This repo shows an example for rolling out a complete Azure Machine Learning enterprise enviroment with network-secured resources via Terraform. This extends the original repo by including network security for all of the workspace dependent resources -- including Azure Container Registry, Azure Storage, and Azure Key Vault. 
 
 This repository includes code for deploying an Azure ML workspace into a standalone, isolated VNET. This can be desirable in cases where you want further isolation from your corporate network or have contstraints on available resources. 
-
+```
+# Note: you will need to have the ml module of the Azure CLI installed to run the final commands that create compute instances and clusters, etc. You can do this by running the following az cli command:
+az extension add --name azure-cli-ml command
+```
+in the future, when the new Azure ML cli extension is working, you would run
+```
+az extension add --name ml
+```
+See here for more details on az cli for ml https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli
 ## Scenario 1: Workspace in standalone VNET with Workspace and Bastion Jumphost for Client Connectivity
 ![Deployed resources](media/secure_workspace_with_standalone_vnet.png "Deployed resources")
 

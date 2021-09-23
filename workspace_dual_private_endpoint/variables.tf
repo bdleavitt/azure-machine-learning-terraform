@@ -79,6 +79,9 @@ variable "client_network_vnet_id" {
 variable "client_network_subnet_id" {
   type = string
 }
+variable "client_network_subnet_id_for_pe" {
+  type = string
+}
 
 variable "client_network_dns_zone_id_storage_blob" {
   type = string

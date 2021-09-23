@@ -107,7 +107,7 @@ resource "azurerm_private_endpoint" "ws_client_vnet_pe" {
   name                = "${var.prefix}-ws-pe-client-vnet-${random_string.postfix.result}"
   location            = azurerm_resource_group.aml_rg.location
   resource_group_name = azurerm_resource_group.aml_rg.name
-  subnet_id           = var.client_network_subnet_id
+  subnet_id           = var.client_network_subnet_id_for_pe
 
   private_service_connection {
     name                           = "${var.prefix}-ws-psc-client-vnet-${random_string.postfix.result}"

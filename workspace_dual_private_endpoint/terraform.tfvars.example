@@ -25,8 +25,9 @@ deploy_bastion=true
 use_private_endpoints_for_workspace_resources=false
 
 # Client Network VNET and Subnet ID
-corp_network_vnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}"
-corp_network_subnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}/subnets/{subnet_name}"
+client_network_vnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}"
+client_network_subnet_id="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}/subnets/{subnet_name}"
+client_network_subnet_id_for_pe="/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{VNET_name}/subnets/{subnet_name}"
 
 # Client Network DNS Zones IDs:
 client_network_dns_zone_id_storage_blob = "/subscriptions/{subscription_id_here}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"
